@@ -5,9 +5,6 @@ Trace-VstsEnteringInvocation $MyInvocation
 try {
     Import-VstsLocStrings "$PSScriptRoot\Task.json"
 
-    # Get task variables.
-    [bool]$debug = Get-VstsTaskVariable -Name System.Debug -AsBool
-
     # Get the inputs.
     [string]$msBuildLocationMethod = Get-VstsInput -Name MSBuildLocationMethod
     [string]$msBuildLocation = Get-VstsInput -Name MSBuildLocation
@@ -19,8 +16,8 @@ try {
     [bool]$maximumCpuCount = Get-VstsInput -Name MaximumCpuCount -AsBool
     [bool]$restoreNuGetPackages = Get-VstsInput -Name RestoreNuGetPackages -AsBool
     [bool]$logProjectEvents = Get-VstsInput -Name LogProjectEvents -AsBool
-    [bool]$createLogFile = (Get-VstsInput -Name CreateLogFile -AsBool) -or $debug
-    [string]$logFileVerbosity = if ($debug) { "diagnostic" } else { Get-VstsInput -Name LogFileVerbosity }
+    [bool]$createLogFile = (Get-VstsInput -Name CreateLogFile -AsBool)
+    [string]$logFileVerbosity = Get-VstsInput -Name LogFileVerbosity
     [string]$msBuildVersion = Get-VstsInput -Name MSBuildVersion
     [string]$msBuildArchitecture = Get-VstsInput -Name MSBuildArchitecture
 
